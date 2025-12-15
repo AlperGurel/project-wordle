@@ -15,7 +15,7 @@ function Game() {
   return (
     <>
       <p>Put a game here!</p>
-      <UserGuessList guessList={guesses}/>
+      <UserGuessList guessList={guesses} answer={answer}/>
       <Input onAddGuess={(guess)=>{
         setGuesses([...guesses, guess])
       }}/>
