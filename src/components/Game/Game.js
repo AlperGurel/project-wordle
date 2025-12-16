@@ -7,11 +7,15 @@ import UserGuessList from "../UserGuessList/UserGuessList";
 import { checkGuess } from "../../game-helpers";
 
 // Pick a random word on every pageload.
-const answer = sample(WORDS);
+// const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
+// console.info({ answer });
 
 function Game() {
+  const [answer, setAnswer] = useState(() => {
+    const r = sample(WORDS);
+    return r;
+  })
   const [guesses, setGuesses] = useState([]);
   let isGameOver = guesses.length >= 6 || guesses.includes(answer);
   let isWin = guesses.includes(answer);
@@ -22,6 +26,11 @@ function Game() {
       usedLetters[el.letter] = el.status;
     });
   });
+
+  const restart = () => {
+    setAnswer(sample(WORDS))
+    setGuesses([]);
+  }
   return (
     <>
       {isGameOver && !isWin && (
@@ -29,6 +38,9 @@ function Game() {
           <p>
             Sorry, the correct answer is <strong>{answer}</strong>.
           </p>
+          <button onClick={()=>{
+            restart();
+          }}>restart</button>
         </div>
       )}
       {isGameOver && isWin && (
@@ -37,6 +49,9 @@ function Game() {
             <strong>Congratulations!</strong> Got it in
             <strong>3 guesses</strong>.
           </p>
+              <button onClick={()=>{
+            restart();
+          }}>restart</button>
         </div>
       )}
       <UserGuessList guessList={guesses} answer={answer} />
