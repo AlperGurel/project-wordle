@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Input({onAddGuess, isGameOver}) {
+function Input({ onAddGuess, isGameOver, usedLetters }) {
+  console.log(usedLetters)
   const [val, setVal] = React.useState("");
+  const chars = [
+    "qwertyuiop".toLocaleUpperCase().split(""),
+    "asdfghjkl".toLocaleUpperCase().split(""),
+    "zxcvbnm".toLocaleUpperCase().split(""),
+  ];
+  const [pressed, setPressed] = useState([]);
   return (
     <form
       onSubmit={(e) => {
@@ -25,6 +32,30 @@ function Input({onAddGuess, isGameOver}) {
           }
         }}
       ></input>
+
+      <div className="keyboard">
+        {chars.map((row, index) => (
+          <div key={index}>
+            {row.map((el, index) => (
+              <span
+                className={`key ${usedLetters[el]}`}
+                key={index}
+                onClick={() => {
+                  if (val.length > 4) {
+                    return;
+                  }
+                  setVal((val) => {
+                    return val + el.toUpperCase();
+                  });
+                  setPressed([...pressed, el.toUpperCase()])
+                }}
+              >
+                {el}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
     </form>
   );
 }

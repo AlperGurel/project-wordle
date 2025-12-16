@@ -196,6 +196,46 @@ h1 {
   border: 0;
 }
 
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 4;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard > div {
+  display: flex;
+  gap: 4px;
+}
+
+.keyboard .key {
+  background-color: var(--color-gray-900);
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.keyboard .key.misplaced {
+  background: var(--color-warning);
+  border-color: var(--color-warning);
+  color: white;
+}
+
+.keyboard .key.incorrect {
+  background: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+  color: white;
+}
+
+.keyboard .key.correct {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+
 /*
   Modal styles
 
