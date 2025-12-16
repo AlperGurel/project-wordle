@@ -1,8 +1,7 @@
 import React from "react";
 
-function Input({onAddGuess}) {
+function Input({onAddGuess, isGameOver}) {
   const [val, setVal] = React.useState("");
-
   return (
     <form
       onSubmit={(e) => {
@@ -17,6 +16,7 @@ function Input({onAddGuess}) {
       <input
         id="guess-input"
         type="text"
+        disabled={isGameOver}
         value={val}
         pattern="\w{5,5}"
         onChange={(e) => {

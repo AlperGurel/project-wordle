@@ -11,14 +11,33 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
-  const [guesses, setGuesses] = useState([])
+  const [guesses, setGuesses] = useState([]);
+  let isGameOver = guesses.length >= 6 || guesses.includes(answer);
+  let isWin = guesses.includes(answer);
   return (
     <>
-      <p>Put a game here!</p>
-      <UserGuessList guessList={guesses} answer={answer}/>
-      <Input onAddGuess={(guess)=>{
-        setGuesses([...guesses, guess])
-      }}/>
+      {isGameOver && !isWin && (
+        <div className="sad banner">
+          <p>
+            Sorry, the correct answer is <strong>{answer}</strong>.
+          </p>
+        </div>
+      )}
+      {(isGameOver && isWin) && (
+        <div className="happy banner">
+          <p>
+            <strong>Congratulations!</strong> Got it in
+            <strong>3 guesses</strong>.
+          </p>
+        </div>
+      )}
+      <UserGuessList guessList={guesses} answer={answer} />
+      <Input
+        onAddGuess={(guess) => {
+          setGuesses([...guesses, guess]);
+        }}
+        isGameOver={isGameOver}
+      />
     </>
   );
 }
